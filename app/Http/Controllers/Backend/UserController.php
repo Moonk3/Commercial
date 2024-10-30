@@ -26,11 +26,24 @@ class UserController extends Controller
         //$users = User::paginate(10);
 
         $config = $this->config();
+
+        $config['seo'] = config('apps.user');
+
         $template = 'backend.user.index';
         return view('backend.dashboard.layout',compact(
             'template',
             'config',
             'users'
+        ));
+    }
+
+    //Tạo 1 view cho Add Nhân viên
+    public function create(){
+        $config['seo'] = config('apps.user');
+        $template = 'backend.user.create';
+        return view('backend.dashboard.layout',compact(
+            'template',
+            'config'
         ));
     }
 

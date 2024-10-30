@@ -23,14 +23,15 @@ Route::get('/', function () {
 });
 
 /*Backend Routes*/
-Route::get('dashboard/index',[DashboardController::class,'index'])->name
-('dashboard.index')->middleware('admin');
+Route::get('dashboard/index',[DashboardController::class,'index'])->name('dashboard.index')->middleware('admin');
 
 /*User*/
-Route::get('user/index',[UserController::class,'index'])->name
-('user.index')->middleware('admin');
+Route::group(['prefix' => 'user'], function(){
+    Route::get('index',[UserController::class,'index'])->name('user.index')->middleware('admin');
+    // Thêm nhân viên
+    Route::get('create',[UserController::class,'create'])->name('user.create')->middleware('admin');
+});
 
-Route::get('admin',[AuthController::class,'index'])->name
-('auth.admin')->middleware(LoginMiddleware::class);
+Route::get('admin',[AuthController::class,'index'])->name('auth.admin')->middleware(LoginMiddleware::class);
 Route::get('logout',[AuthController::class,'logout'])->name('auth.logout');
 Route::post('login',[AuthController::class,'login'])->name('auth.login');

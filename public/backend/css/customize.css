@@ -70,6 +70,26 @@ table strong{
 .mr10{
     margin-right: 10px;
 }
+.mb15{
+    margin-bottom: 15px;
+}
 .mr5{
     margin-right: 5px;
+}
+
+.box .ibox{
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 1);
+}
+
+.control-label{
+    display: block;
+}
+.pannel-title{
+    font-size: 20px;
+    margin-bottom: 15px;
+    font-weight: 700;
+    color: black;
+}
+.pannel-description{
+    font-size: 15px;
 }
