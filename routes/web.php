@@ -31,6 +31,7 @@ Route::group(['prefix' => 'user'], function(){
     Route::get('index',[UserController::class,'index'])->name('user.index')->middleware('admin');
     // Thêm nhân viên
     Route::get('create',[UserController::class,'create'])->name('user.create')->middleware('admin');
+    Route::post('store',[UserController::class,'store'])->name('user.store')->middleware('admin');
 });
 
 // AJAX 30/10/2024

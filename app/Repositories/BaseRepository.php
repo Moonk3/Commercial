@@ -27,4 +27,14 @@ class BaseRepository implements BaseRepositoryInterface
     public function all(){
         return $this->model->all();
     }
+
+    // Tìm một bản ghi theo ID, với các cột và quan hệ được chỉ định. (31/10/2024)
+
+    public function findById(
+        int $modelId,
+        array $column = ['*'],
+        array $relation = []
+    ){
+        return $this->model->select($column)->with($relation)->findOrFail($modelId);
+    }
 }
