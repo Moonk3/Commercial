@@ -6,7 +6,10 @@
             <div class="col-lg-5">
                 <div class="panel-head">
                     <div class="panel-title">Thông tin chung</div>
-                    <div class="panel-description">Nhập thông tin chung của người dùng</div>
+                    <div class="panel-description">
+                        <p>Nhập thông tin chung của người dùng</p>
+                        <p>Lưu ý: Những hợp đáng dầu <span class="text-danger">(*)</span> là bắt buộc</p>
+                    </div>
                 </div>
             </div>
             <div class="col-lg-7">
@@ -133,25 +136,45 @@
                         <div class="row mb15">
                             <div class="col-lg-6">
                                 <div class="form-row">
-                                    <label for="" class="control-label text-right">Email
-                                    <span class="text-danger">(*)</span>
+                                    <label for="" class="control-label text-right">Thành phố
                                     </label>
-                                    <input type="text"
-                                            name="email"
-                                            value=""
-                                            class="form-control"
-                                            placeholder=""
-                                            outocomplete="off"
-                                            >
+                                    <select name="provice_id" class="form-control setupSelect2 province">
+                                        <option value="0">[Chọn thành phố]</option>
+                                        @if(@isset($provinces))
+                                            @foreach($provinces as $province)                              
+                                            <option value="{{$province->code}}">{{
+                                            $province->name}}</option>
+                                            @endforeach
+                                        @endif
+                                    </select>
                                 </div>
                             </div>
                             <div class="col-lg-6">
                                 <div class="form-row">
-                                    <label for="" class="control-label text-right">Họ tên
-                                    <span class="text-danger">(*)</span>
+                                    <label for="" class="control-label text-right">Quận/Huyện
+                                    </label>
+                                    <select name="district_id" class="form-control setupSelect2 districts">
+                                        <option value="0">[Chọn Quận/Huyện]</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row mb15">
+                            <div class="col-lg-6">
+                                <div class="form-row">
+                                    <label for="" class="control-label text-right">Phường/Xã
+                                    </label>
+                                    <select name="ward_id" class="form-control">
+                                        <option value="0">[Chọn Phường/Xã]</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-lg-6">
+                                <div class="form-row">
+                                    <label for="" class="control-label text-right">Địa chỉ
                                     </label>
                                     <input type="text"
-                                            name="name"
+                                            name="address"
                                             value=""
                                             class="form-control"
                                             placeholder=""
@@ -163,39 +186,11 @@
                         <div class="row mb15">
                             <div class="col-lg-6">
                                 <div class="form-row">
-                                    <label for="" class="control-label text-right">Nhóm thành viên
-                                    <span class="text-danger">(*)</span>
-                                    </label>
-                                  <select name="user_catalogue_id" class="form-control" id="">
-                                    <option value="0">[Chọn nhóm thành viên]</option>
-                                    <option value="1">Quản trị viên</option>
-                                    <option value="2">Cộng tác viên</option>
-                                  </select>
-                                </div>
-                            </div>
-                            <div class="col-lg-6">
-                                <div class="form-row">
-                                    <label for="" class="control-label text-right">Ngày sinh
+                                    <label for="" class="control-label text-right">Số điện thoại
                                     <span class="text-danger">(*)</span>
                                     </label>
                                     <input type="text"
-                                            name="birthday"
-                                            value=""
-                                            class="form-control"
-                                            placeholder=""
-                                            outocomplete="off"
-                                            >
-                                </div>
-                            </div>
-                        </div>
-                        <div class="row mb15">
-                            <div class="col-lg-6">
-                                <div class="form-row">
-                                    <label for="" class="control-label text-right">Mật khẩu
-                                    <span class="text-danger">(*)</span>
-                                    </label>
-                                    <input type="password"
-                                            name="password"
+                                            name="phone"
                                             value=""
                                             class="form-control"
                                             placeholder=""
@@ -205,7 +200,7 @@
                             </div>
                             <div class="col-lg-6">
                                 <div class="form-row">
-                                    <label for="" class="control-label text-right">Nhập lại mật khẩu
+                                    <label for="" class="control-label text-right">Ghi chú
                                     <span class="text-danger">(*)</span>
                                     </label>
                                     <input type="password"
@@ -218,24 +213,12 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="row mb15">
-                            <div class="col-lg-12">
-                                <div class="form-row">
-                                    <label for="" class="control-label text-right">Avatar
-                                    </label>
-                                    <input type="text"
-                                            name="image"
-                                            value=""
-                                            class="form-control"
-                                            placeholder=""
-                                            outocomplete="off"
-                                            >
-                                </div>
-                            </div>
-                        </div>
                     </div>
                 </div>
             </div>
+        </div>
+        <div class="text-right mb15">
+            <button class="btn btn-primary" type="submit" name="send" value="send">Lưu</button>
         </div>
     </div>
 </form>

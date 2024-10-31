@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Route;
 use SebastianBergmann\CodeCoverage\Report\Html\Dashboard;
 use App\Http\Controllers\Backend\DashboardController;
 use App\Http\Controllers\Backend\UserController;
+use App\Http\Controllers\Ajax\LocationController;
 use App\Http\Middleware\AuthenticateMiddleware;
 use App\Http\Middleware\LoginMiddleware;
 /*
@@ -31,6 +32,9 @@ Route::group(['prefix' => 'user'], function(){
     // Thêm nhân viên
     Route::get('create',[UserController::class,'create'])->name('user.create')->middleware('admin');
 });
+
+// AJAX 30/10/2024
+Route::get('ajax/location/getLocation',[LocationController::class,'getLocation'])->name('ajax.location.index')->middleware('admin');
 
 Route::get('admin',[AuthController::class,'index'])->name('auth.admin')->middleware(LoginMiddleware::class);
 Route::get('logout',[AuthController::class,'logout'])->name('auth.logout');
