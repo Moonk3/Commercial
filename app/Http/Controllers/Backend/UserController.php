@@ -63,7 +63,6 @@ class UserController extends Controller
             'js' =>[
                 'https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js',
                 'backend/library/location.js',
-                'backend/library/finder.js',
             ]
         ];
         $config['seo'] = config('apps.user');
@@ -87,7 +86,9 @@ class UserController extends Controller
     // }
 
     public function store(StoreUserRequest $request){
-        echo 1;
-        die();
+        if($this->userService->create($request)){
+            return redirect()->route('user.index')->with('success','Thêm mới user thành công');
+        }
+        return redirect()->route('user.index')->with('error','Thêm mới user không thành công. Hãy thử lại');
     }
 }

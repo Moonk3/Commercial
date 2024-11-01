@@ -72,7 +72,7 @@
                                     <label for="" class="control-label text-right">Ngày sinh
                                     <span class="text-danger">(*)</span>
                                     </label>
-                                    <input type="text"
+                                    <input type="date"
                                             name="birthday"
                                             value="{{old('birthday')}}"
                                             class="form-control"
@@ -90,7 +90,7 @@
                                     </label>
                                     <input type="password"
                                             name="password"
-                                            value="{{old('password')}}"
+                                            value=""
                                             class="form-control"
                                             placeholder=""
                                             outocomplete="off"
@@ -152,7 +152,8 @@
                                         <option value="0">[Chọn thành phố]</option>
                                         @if(@isset($provinces))
                                             @foreach($provinces as $province)                              
-                                            <option value="{{$province->code}}">{{
+                                            <option @if(old('province_id') == $province->code) selected
+                                            @endif value="{{$province->code}}">{{
                                             $province->name}}</option>
                                             @endforeach
                                         @endif
@@ -213,8 +214,8 @@
                                     <label for="" class="control-label text-right">Ghi chú
                                     <span class="text-danger">(*)</span>
                                     </label>
-                                    <input type="password"
-                                            name="re_password"
+                                    <input type="text"
+                                            name="description"
                                             value="{{old('description')}}"
                                             class="form-control"
                                             placeholder=""
@@ -232,3 +233,9 @@
         </div>
     </div>
 </form>
+
+<script>
+    var province_id = '{{old('province_id')}}'
+    var district_id = '{{old('district_id')}}'
+    var ward_id = '{{old('ward_id')}}'
+</script>
