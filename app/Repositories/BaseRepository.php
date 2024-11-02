@@ -28,6 +28,16 @@ class BaseRepository implements BaseRepositoryInterface
        $model =  $this->model->create($payLoad);
        return $model->fresh();
     }
+
+    public function update(int $id = 0, array $payLoad = []){
+        $model = $this->findById($id);
+        return $model->update($payLoad);
+    }
+
+    public function delete(int $id = 0){
+        return $this->findById($id)->delete();
+    }
+
     public function all(){
         return $this->model->all();
     }

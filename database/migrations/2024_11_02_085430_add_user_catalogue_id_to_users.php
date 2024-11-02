@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::table('users', function (Blueprint $table) {
             //1/11/2024
-            $table->integer('user_catalouge_id')->default(2);
+            $table->integer('user_catalogue_id')->default(2);
         });
     }
 
@@ -24,7 +24,7 @@ return new class extends Migration
     {
         Schema::table('users', function (Blueprint $table) {
             //
-            $table->dropColumn('user_catalouge_id');
+            $table->dropColumn('user_catalogue_id');
         });
     }
 };

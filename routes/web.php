@@ -31,7 +31,15 @@ Route::group(['prefix' => 'user'], function(){
     Route::get('index',[UserController::class,'index'])->name('user.index')->middleware('admin');
     // Thêm nhân viên
     Route::get('create',[UserController::class,'create'])->name('user.create')->middleware('admin');
+    //Lưu thông tin admin
     Route::post('store',[UserController::class,'store'])->name('user.store')->middleware('admin');
+    //Edit thông tin admin (2/11/2024)
+    Route::get('{id}/edit', [UserController::class, 'edit'])->where(['id' => '[0-9]+'])->name('user.edit')->middleware('admin');
+    Route::post('{id}/update',[UserController::class,'update'])->where(['id' => '[0-9]+'])->name('user.update')->middleware('admin');
+    //Xoá thông tin admin 
+    Route::get('{id}/delete',[UserController::class,'delete'])->where(['id' => '[0-9]+'])->name('user.delete')->middleware('admin');
+    Route::get('{id}/destroy',[UserController::class,'destroy'])->where(['id' => '[0-9]+'])->name('user.destroy')->middleware('admin');
+
 });
 
 // AJAX 30/10/2024

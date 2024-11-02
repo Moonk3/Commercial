@@ -7,5 +7,8 @@ return [
     'create' => [
         'title' => 'Thêm mới Thành Viên'
         //'tableHeading' => 'Danh sách thành viên'
+    ],
+    'delete' => [
+        'title' => 'Xoá thành viên'
     ]
 ];

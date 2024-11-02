@@ -8,7 +8,12 @@
         </ul>
     </div>
 @endif
-<form action="{{route('user.store')}}" method="POST" class="box">
+@php
+    $url = ($config['method'] == 'create') ? route('user.store') : route('user.update',
+    $user->id);
+@endphp
+<form action="{{ $url }}" method="POST" class="box">
+
     @csrf
     <div class="wrapper wrapper-content animated fadeInRight">
         <div class="row">
@@ -32,7 +37,7 @@
                                     </label>
                                     <input type="text"
                                             name="email"
-                                            value="{{old('email')}}"
+                                            value="{{old('email', ($user->email) ?? '' )}}"
                                             class="form-control"
                                             placeholder=""
                                             outocomplete="off"
@@ -46,7 +51,7 @@
                                     </label>
                                     <input type="text"
                                             name="name"
-                                            value="{{old('name')}}"
+                                            value="{{old('name',($user->name) ?? '')}}"
                                             class="form-control"
                                             placeholder=""
                                             outocomplete="off"
@@ -55,11 +60,11 @@
                             </div>
                         </div>
                         @php
-                            $userCatalouge = [
+                            $userCatalogue = [
                                 '[Chọn nhóm thành viên]',
                                 'Quản trị viên',
                                 'Cộng tác viên'
-                    ];
+                            ];
                         @endphp
                         <div class="row mb15">
                             <div class="col-lg-6">
@@ -67,12 +72,14 @@
                                     <label for="" class="control-label text-right">Nhóm thành viên
                                     <span class="text-danger">(*)</span>
                                     </label>
-                                  <select name="user_catalogue_id" class="form-control setupSelect2" id="">
-                                    @foreach($userCatalouge as $key=> $item)
-                                    <option @if(old('user_catalogue_id') == $key) selected
-                                        @endif  value="{{$key}}">{{$item}}</option>
-                                    @endforeach
-                                  </select>
+                                    <select name="user_catalogue_id" class="form-control setupSelect2">
+                                        @foreach($userCatalogue as $key => $item)
+                                        <option {{$key == old('user_catalogue_id',(isset
+                                        ($user->user_catalogue_id)) ? 
+                                        $user->user_catalogue_id : '' ) ? 'selected' : ''}}
+                                        value="{{$key}}">{{$item}}</option>
+                                        @endforeach
+                                    </select>
                                 </div>
                             </div>
                             <div class="col-lg-6">
@@ -82,7 +89,7 @@
                                     </label>
                                     <input type="date"
                                             name="birthday"
-                                            value="{{old('birthday')}}"
+                                            value="{{old('birthday',(isset($user->birthday)) ? date('Y-m-d', strtotime($user->birthday)) : '') }}"
                                             class="form-control"
                                             placeholder=""
                                             outocomplete="off"
@@ -90,6 +97,7 @@
                                 </div>
                             </div>
                         </div>
+                        @if($config['method'] == 'create')
                         <div class="row mb15">
                             <div class="col-lg-6">
                                 <div class="form-row">
@@ -120,6 +128,7 @@
                                 </div>
                             </div>
                         </div>
+                        @endif
                         <div class="row mb15">
                             <div class="col-lg-12">
                                 <div class="form-row">
@@ -127,7 +136,7 @@
                                     </label>
                                     <input type="text"
                                             name="image"
-                                            value="{{old('image')}}"
+                                            value="{{old('image',($user->image) ?? '')}}"
                                             class="form-control input-image"
                                             placeholder=""
                                             outocomplete="off"
@@ -156,7 +165,7 @@
                                 <div class="form-row">
                                     <label for="" class="control-label text-right">Thành phố
                                     </label>
-                                    <select name="provice_id" class="form-control setupSelect2 province location" data-target="districts">
+                                    <select name="province_id" class="form-control setupSelect2 province location" data-target="districts">
                                         <option value="0">[Chọn thành phố]</option>
                                         @if(@isset($provinces))
                                             @foreach($provinces as $province)                              
@@ -194,7 +203,7 @@
                                     </label>
                                     <input type="text"
                                             name="address"
-                                            value="{{old('address')}}"
+                                            value="{{old('address',($user->address) ?? '')}}"
                                             class="form-control"
                                             placeholder=""
                                             outocomplete="off"
@@ -210,7 +219,7 @@
                                     </label>
                                     <input type="text"
                                             name="phone"
-                                            value="{{old('phone')}}"
+                                            value="{{old('phone',($user->phone) ?? '')}}"
                                             class="form-control"
                                             placeholder=""
                                             outocomplete="off"
@@ -224,7 +233,7 @@
                                     </label>
                                     <input type="text"
                                             name="description"
-                                            value="{{old('description')}}"
+                                            value="{{old('description',($user->description) ?? '')}}"
                                             class="form-control"
                                             placeholder=""
                                             outocomplete="off"
@@ -243,7 +252,7 @@
 </form>
 
 <script>
-    var province_id = '{{old('province_id')}}'
-    var district_id = '{{old('district_id')}}'
-    var ward_id = '{{old('ward_id')}}'
+    var province_id = '{{ (isset($user->province_id)) ? $user->province_id : old('province_id') }}'
+    var district_id = '{{ (isset($user->district_id)) ? $user->district_id : old('district_id') }}'
+    var ward_id = '{{ (isset($user->ward_id)) ? $user->ward_id : old('ward_id') }}'
 </script>
