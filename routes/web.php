@@ -38,7 +38,7 @@ Route::group(['prefix' => 'user'], function(){
     Route::post('{id}/update',[UserController::class,'update'])->where(['id' => '[0-9]+'])->name('user.update')->middleware('admin');
     //Xoá thông tin admin 
     Route::get('{id}/delete',[UserController::class,'delete'])->where(['id' => '[0-9]+'])->name('user.delete')->middleware('admin');
-    Route::get('{id}/destroy',[UserController::class,'destroy'])->where(['id' => '[0-9]+'])->name('user.destroy')->middleware('admin');
+    Route::delete('{id}/destroy',[UserController::class,'destroy'])->where(['id' => '[0-9]+'])->name('user.destroy')->middleware('admin');
 
 });
 

@@ -1,8 +1,8 @@
 @include('backend.dashboard.component.breakcrumb',['title' => $config['seo']['create']['title']])
 
-<form action="{{route('user.destroy')}}" method="POST" class="box">
-
+<form action="{{route('user.destroy',$user->id)}}" method="post" class="box">
     @csrf
+    @method('DELETE')
     <div class="wrapper wrapper-content animated fadeInRight">
         <div class="row">
             <div class="col-lg-5">

@@ -38,6 +38,27 @@ class BaseRepository implements BaseRepositoryInterface
         return $this->findById($id)->delete();
     }
 
+    // public function forceDelete(int $id = 0){
+    //     return $this->findById($id)->forceDelete();
+    // }
+
+    public function pagination(
+        array $column = ['*'], 
+        array $condition = [], 
+        array $join = [],
+        int $perpage = 10
+        ){
+        $query = $this->model->select($column)
+                    ->where($condition);
+                    // ->join($join)
+                    // ->get()->paginate($perpage);
+        if(!empty($join)){
+            $query ->join(...$join);
+        }
+
+        return $query->paginate($perpage);
+    }
+
     public function all(){
         return $this->model->all();
     }

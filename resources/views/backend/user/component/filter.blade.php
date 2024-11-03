@@ -3,7 +3,7 @@
         <div class="perpage-wrapper">
             <div class="uk-flex uk-flex-middle uk-flex-space-between">
                 <select name="perpage" class="form-control input-sm perpage filter mr10" id="">
-                    @for($i=20;$i<=200;$i+=20)
+                    @for($i=10;$i<=200;$i+=10)
                     <option value="{{$i}}">{{$i}} bản ghi</option>
                     @endfor
                 </select>

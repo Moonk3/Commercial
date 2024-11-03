@@ -23,8 +23,18 @@ class UserService implements UserServiceInterface
     ){
         $this->userRepository = $userRepository;
     }
+
+    //3/11/2024
     public function paginate(){
-        $user = $this->userRepository->getAllPaginate();
+        //$user = $this->userRepository->getAllPaginate();
+        $user = $this->userRepository->pagination([
+            'id',
+            'email',
+            'phone',
+            'address',
+            'name',
+            'publish'
+        ]);
         return $user;
     }
 
