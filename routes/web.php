@@ -6,6 +6,7 @@ use SebastianBergmann\CodeCoverage\Report\Html\Dashboard;
 use App\Http\Controllers\Backend\DashboardController;
 use App\Http\Controllers\Backend\UserController;
 use App\Http\Controllers\Ajax\LocationController;
+use App\Http\Controllers\Ajax\DashboardController as AjaxDashboardController;
 use App\Http\Middleware\AuthenticateMiddleware;
 use App\Http\Middleware\LoginMiddleware;
 /*
@@ -42,8 +43,11 @@ Route::group(['prefix' => 'user'], function(){
 
 });
 
-// AJAX 30/10/2024
+// AJAX 
+//30/10/2024
 Route::get('ajax/location/getLocation',[LocationController::class,'getLocation'])->name('ajax.location.index')->middleware('admin');
+//3/11/2024 (sos)
+Route::post('ajax/dashboard/changeStatus',[AjaxDashboardController::class,'changeStatus'])->name('ajax.dashboard.changeStatus')->middleware('admin');
 
 Route::get('admin',[AuthController::class,'index'])->name('auth.admin')->middleware(LoginMiddleware::class);
 Route::get('logout',[AuthController::class,'logout'])->name('auth.logout');

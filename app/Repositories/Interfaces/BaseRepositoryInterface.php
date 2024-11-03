@@ -19,7 +19,8 @@ interface BaseRepositoryInterface
         array $column = ['*'], 
         array $condition = [], 
         array $join = [],
-        int $perpage = 10
+        array $extend = [],
+        int $perpage = 1
     );
 }
 

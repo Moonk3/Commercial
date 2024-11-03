@@ -29,6 +29,7 @@ class BaseRepository implements BaseRepositoryInterface
        return $model->fresh();
     }
 
+    //Status 3/11/2024
     public function update(int $id = 0, array $payLoad = []){
         $model = $this->findById($id);
         return $model->update($payLoad);
@@ -46,17 +47,21 @@ class BaseRepository implements BaseRepositoryInterface
         array $column = ['*'], 
         array $condition = [], 
         array $join = [],
-        int $perpage = 10
+        array $extend = [],
+        int $perPage = 1
         ){
         $query = $this->model->select($column)
-                    ->where($condition);
+                    ->where(function($query) use ($condition){
+                        $query->where('name','LIKE','%'.$condition['keyword'].'%');
+                    });
                     // ->join($join)
                     // ->get()->paginate($perpage);
         if(!empty($join)){
             $query ->join(...$join);
         }
 
-        return $query->paginate($perpage);
+        return $query->paginate($perPage)
+                    ->withQueryString()->withPath(env('APP_URL').$extend['path']);
     }
 
     public function all(){

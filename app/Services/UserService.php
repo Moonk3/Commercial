@@ -25,16 +25,21 @@ class UserService implements UserServiceInterface
     }
 
     //3/11/2024
-    public function paginate(){
-        //$user = $this->userRepository->getAllPaginate();
-        $user = $this->userRepository->pagination([
+    public function paginateSelect(){
+        return[
             'id',
             'email',
             'phone',
             'address',
             'name',
             'publish'
-        ]);
+        ];
+    }
+    public function paginate($request){
+        $condition['keyword'] = addcslashes($request->input('keyword'), "'\"\\%");
+        //$user = $this->userRepository->getAllPaginate();
+        $perPage = $request->integer('perpage');
+        $user = $this->userRepository->pagination($this->paginateSelect(), $condition,[],['path' => 'user/index'],$perPage);
         return $user;
     }
 
@@ -88,6 +93,22 @@ class UserService implements UserServiceInterface
         DB::beginTransaction();
         try{
             $user = $this->userRepository->delete($id);
+            DB::commit();
+            return true;
+        }catch(\Exception $e){
+            DB::rollBack();
+            echo $e->getMessage();
+            die();
+            return false;
+        }
+    }
+
+    // Status 3/11/2024
+    public function updateStatus($post = []){
+        DB::beginTransaction();
+        try{
+            $payLoad[$post['field']] = (($post['value'] == 1)?0:1);
+            $user = $this->userRepository->update($post['modelId'], $payLoad);
             DB::commit();
             return true;
         }catch(\Exception $e){
