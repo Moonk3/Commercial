@@ -16,28 +16,29 @@ class DashboardController extends Controller
         $this->userService  = $userService;
     }
 
+    //3/11/2024
     public function changeStatus(Request $request){
         $post = $request->input();
         $serviceInterfaceNamespace = '\App\Services\\' . ucfirst($post['model']) . 'Service';
         if (class_exists($serviceInterfaceNamespace)) {
             $serviceInstance = app($serviceInterfaceNamespace);
         }
-        $serviceInstance->updateStatus($post);
-        // $flag = $serviceInstance->updateStatus($post);
+        //$serviceInstance->updateStatus($post);
+        $flag = $serviceInstance->updateStatus($post);
 
-        // return response()->json(['flag' => $flag]); 
+        return response()->json(['flag' => $flag]); 
     }
 
-    // public function changeStatusAll(Request $request){
-    //     $post = $request->input();
-    //     $serviceInterfaceNamespace = '\App\Services\\' . ucfirst($post['model']) . 'Service';
-    //     if (class_exists($serviceInterfaceNamespace)) {
-    //         $serviceInstance = app($serviceInterfaceNamespace);
-    //     }
-    //     $flag = $serviceInstance->updateStatusAll($post);
-    //     return response()->json(['flag' => $flag]); 
+    public function changeStatusAll(Request $request){
+        $post = $request->input();
+        $serviceInterfaceNamespace = '\App\Services\\' . ucfirst($post['model']) . 'Service';
+        if (class_exists($serviceInterfaceNamespace)) {
+            $serviceInstance = app($serviceInterfaceNamespace);
+        }
+        $flag = $serviceInstance->updateStatusAll($post);
+        return response()->json(['flag' => $flag]); 
 
-    // }
+    }
    
    
 }

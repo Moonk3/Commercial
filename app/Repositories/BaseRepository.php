@@ -29,12 +29,24 @@ class BaseRepository implements BaseRepositoryInterface
        return $model->fresh();
     }
 
-    //Status 3/11/2024
+    //Status 3/11/2024 start 
     public function update(int $id = 0, array $payLoad = []){
         $model = $this->findById($id);
         return $model->update($payLoad);
     }
 
+    public function updateByWhereIn(string $whereInField = '', array $whereIn = [], array $payload = []){
+        return $this->model->whereIn($whereInField, $whereIn)->update($payload);
+    }
+
+    public function updateByWhere($condition = [], array $payload = []){
+        $query = $this->model->newQuery();
+        foreach($condition as $key => $val){
+            $query->where($val[0], $val[1] , $val[2]);
+        }
+        return $query->update($payload);
+    }
+    //end
     public function delete(int $id = 0){
         return $this->findById($id)->delete();
     }
