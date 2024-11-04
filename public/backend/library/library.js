@@ -1,7 +1,7 @@
 (function($){
     "use strict";
     var HT = {};
-    var _token = $('meta[name = "csrf-token"]').attr('content');
+    
 
     HT.switchery = () => {
         $('.js-switch').each(function(){
@@ -23,11 +23,11 @@
         $(document).on('change', '.status', function(e){
             let _this = $(this)
             let option = {
-                //'value' : _this.val(),
+                'value' : _this.val(),
                 'modelId' : _this.attr('data-modelId'),
                 'model' : _this.attr('data-model'),
                 'field' : _this.attr('data-field'),
-                'value': _this.prop('checked') ? 0 : 1, //Khác
+                //'value': _this.prop('checked') ? 0 : 1, //Khác
                 '_token' : _token
             }
 
@@ -102,6 +102,8 @@
                     }
                 })
 
+                console.log(id);
+                return false;
                 let option = {
                     'value' : _this.attr('data-value'),
                     'model' : _this.attr('data-model'),
@@ -148,6 +150,7 @@
         HT.changeStatus();
         HT.checkAll();
         HT.checkBoxItem();
+        HT.allChecked();
         HT.changeStatusAll();
     });
 
