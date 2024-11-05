@@ -121,18 +121,18 @@ class UserService implements UserServiceInterface
 
     public function updateStatusAll($post){
         //dd($post);
-        // DB::beginTransaction();
-        // try{
-        //     $payLoad[$post['field']] = (($post['value'] == 1)?0:1);
-        //     $flag = $this->userRepository->updateByWhereIn('id', $post['id'], $payLoad);
+        DB::beginTransaction();
+        try{
+            $payLoad[$post['field']] = $post['value'];
+            $flag = $this->userRepository->updateByWhereIn('id', $post['id'], $payLoad);
 
-        //     DB::commit();
-        //     return true;
-        // }catch(\Exception $e ){
-        //     DB::rollBack();
-        //     // Log::error($e->getMessage());
-        //     echo $e->getMessage();die();
-        //     return false;
-        // }
+            DB::commit();
+            return true;
+        }catch(\Exception $e ){
+            DB::rollBack();
+            // Log::error($e->getMessage());
+            echo $e->getMessage();die();
+            return false;
+        }
     }
 }

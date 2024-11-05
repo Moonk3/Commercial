@@ -1,11 +1,11 @@
 (function($){
     "use strict";
     var HT = {};
-    
+    var _token = $('meta[name="csrf-token"]').attr('content');
 
     HT.switchery = () => {
         $('.js-switch').each(function(){
-            var switchery = new Switchery(this,{color:'#1AB394'});
+            var switchery = new Switchery(this,{color:'#1AB394', size: 'small'});
         })
     }
 
@@ -102,15 +102,17 @@
                     }
                 })
 
-                console.log(id);
-                return false;
+                // console.log(id);
+                // return false;
                 let option = {
+                    //'value' : _this.val(),
                     'value' : _this.attr('data-value'),
                     'model' : _this.attr('data-model'),
                     'field' : _this.attr('data-field'),
                     'id'    : id,
                     '_token' : _token
                 }
+            
 
                 $.ajax({
                     url: 'ajax/dashboard/changeStatusAll', 
@@ -124,13 +126,20 @@
                             let cssUnActive = 'background-color: rgb(255, 255, 255); border-color: rgb(223, 223, 223); box-shadow: rgb(223, 223, 223) 0px 0px 0px 0px inset; transition: border 0.4s ease 0s, box-shadow 0.4s ease 0s;'
                             let cssUnActive2 = 'left: 0px; transition: background-color 0.4s ease 0s, left 0.2s ease 0s;'
 
-                            for(let i = 0; i < id.length; i++){
-                                if(option.value == 2){
-                                    $('.js-switch-'+id[i]).find('span.switchery').attr('style', cssActive1).find('small').attr('style', cssActive2)
-                                }else if(option.value == 1){
-                                    $('.js-switch-'+id[i]).find('span.switchery').attr('style', cssUnActive).find('small').attr('style', cssUnActive2)
-                                }
+                            // for(let i = 0; i < id.length; i++){
+                            //     if(option.value == 1){
+                            //         $('.js-switch-'+id[i]).find('span.switchery').attr('style', cssActive1).find('small').attr('style', cssActive2)
+                            //     }else if(option.value == 1){
+                            //         $('.js-switch-'+id[i]).find('span.switchery').attr('style', cssUnActive).find('small').attr('style', cssUnActive2)
+                            //     }
+                            // }
+                            if(option.value == 1){
+                                for(let i = 0; i < id.length; i++){
+                                $('.js-switch-'+id[i]).find('span.switchery').attr
+                                ('style', cssActive1).find('small').attr('style', 
+                                cssActive2)
                             }
+                        }
                         }
                     },
                     error: function(jqXHR, textStatus, errorThrown) {

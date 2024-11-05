@@ -36,7 +36,7 @@ class DashboardController extends Controller
             $serviceInstance = app($serviceInterfaceNamespace);
         }
         $flag = $serviceInstance->updateStatusAll($post);
-        //return response()->json(['flag' => $flag]); 
+        return response()->json(['flag' => $flag]); 
 
     }
    
