@@ -6,37 +6,38 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\StoreUserRequest;
 use Illuminate\Http\Request;
 use App\Models\User;
-use App\Services\Interfaces\UserServiceInterface as UserService;
-use App\Repositories\Interfaces\ProvinceRepositoryInterface as ProvinceRepository;
+use App\Services\Interfaces\UserCatalogueServiceInterface as UserCatalogueService;
+
 //use App\Repositories\Interfaces\DistrictRepositoryInterface as DistrictService;
-use App\Repositories\Interfaces\UserRepositoryInterface as UserRepository;
+use App\Repositories\Interfaces\UserCatalogueRepositoryInterface as UserCatalogueRepository;
 use App\Http\Requests\UpdateUserRequest;
 use App\Http\Requests\DeleteUserRequest;
 
-class UserController extends Controller
+class UserCatalogueController extends Controller
 {
 
-    protected $userService;
-    protected $provinceRepository;
+    protected $userCatalogueService;
     //protected $districtRepository;
-    protected $userRepository;
+    protected $userCatalogueRepository;
 
     public function __construct(
-        UserService $userService,
-        ProvinceRepository $provinceRepository,
+        UserCatalogueService $userCatalogueService,
+        //ProvinceRepository $provinceRepository,
         //DistrictService $districtRepository,
-        UserRepository $userRepository,
+        UserCatalogueRepository $userCatalogueRepository,
     )
     {
-        $this->userService = $userService;
-        $this->provinceRepository = $provinceRepository;
+        $this->userCatalogueService = $userCatalogueService;
+        //$this->provinceRepository = $provinceRepository;
         //$this->districtRepository = $districtRepository;
-        $this->userRepository = $userRepository;
+        $this->userCatalogueRepository = $userCatalogueRepository;
     }
 
     public function index(Request $request){
 
-        $users = $this->userService->paginate($request);
+        echo 123;die();
+
+        $users = $this->userCatalogueService->paginate($request);
 
         $config = [
             'js' =>[
@@ -50,7 +51,7 @@ class UserController extends Controller
         ];
 
         $config['seo'] = config('apps.user');
-        $template = 'backend.user.user.index';
+        $template = 'backend.user.catalogue.index';
         return view('backend.dashboard.layout',compact(
             'template',
             'config',
@@ -61,7 +62,7 @@ class UserController extends Controller
     //Tạo 1 view cho Add Nhân viên (30/10/2024)
     public function create(){
 
-        $provinces = $this->provinceRepository->all();
+        //$provinces = $this->provinceRepository->all();
 
         $config = [
             'css' =>[
@@ -94,7 +95,7 @@ class UserController extends Controller
     // }
 
     public function store(StoreUserRequest $request){
-        if($this->userService->create($request)){
+        if($this->userCatalogueService->create($request)){
             return redirect()->route('user.index')->with('success','Thêm mới user thành công');
         }
         return redirect()->route('user.index')->with('error','Thêm mới user không thành công. Hãy thử lại');
@@ -102,9 +103,9 @@ class UserController extends Controller
 
     //Edit Infor Admin (2/11/2024)
     public function edit($id){
-        $user = $this->userRepository->findById($id);
+        $user = $this->userCatalogueRepository->findById($id);
 
-        $provinces = $this->provinceRepository->all();
+        //$provinces = $this->provinceRepository->all();
 
         $config = [
             'css' =>[
@@ -127,7 +128,7 @@ class UserController extends Controller
     }
 
     public function update($id, UpdateUserRequest $request){
-        if($this->userService->update($id, $request)){
+        if($this->userCatalogueService->update($id, $request)){
             return redirect()->route('user.index')->with('success','Cập nhật user thành công');
         }
         return redirect()->route('user.index')->with('error','Cập nhật user không thành công. Hãy thử lại');
@@ -136,7 +137,7 @@ class UserController extends Controller
     //Delete Infor Admin
     public function delete($id){
         $config['seo'] = config('apps.user');
-        $user = $this->userRepository->findById($id);
+        $user = $this->userCatalogueRepository->findById($id);
         $template = 'backend.user.user.delete';
         return view('backend.dashboard.layout',compact(
             'template',
@@ -146,7 +147,7 @@ class UserController extends Controller
     }
 
     public function destroy($id){
-        if($this->userService->destroy($id)){
+        if($this->userCatalogueService->destroy($id)){
             return redirect()->route('user.index')->with('success','Xoá user thành công');
         }
         return redirect()->route('user.index')->with('error','Xoá user không thành công. Hãy thử lại');

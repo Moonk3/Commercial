@@ -8,17 +8,22 @@
                 <div class="uk-flex uk-flex-middle uk-flex-space-between">
                     <select name="perpage" class="form-control input-sm perpage filter mr10" id="">
                         @for($i=10;$i<=200;$i+=10)
-                        <option value="{{$i}}">{{$i}} bản ghi</option>
+                        <option {{($perpage == $i) ? 'selected' : ''}} value="{{$i}}">{{$i}} bản ghi</option>
                         @endfor
                     </select>
                 </div>
             </div>
             <div class="action">
                 <div class="uk-flex uk-flex-middle">
+                    @php
+                        $publishArray = ['Không xuất bản','Xuất bản'];
+                        $publish = request('publish') ? : old('publish');
+                    @endphp
                     <select name="publish" class="form-control setupSelect2 ml10" id="">
                         <option value="-1" selected="selected">Chọn Tình trạng</option>
-                        <option value="0">UnPublish</option>
-                        <option value="1">Publish</option>
+                        @foreach ($publishArray as $key => $val)
+                        <option {{($publish == $key) ? 'selected' : ''}} value="{{$key}}">{{$val}}</option>
+                        @endforeach
                     </select>
                     <select name="user_catalogue_id" class="form-control mr10 setupSelect2" id="">
                         <option value="" selected="selected">Chọn nhóm thành viên</option>

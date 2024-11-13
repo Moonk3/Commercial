@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Route;
 use SebastianBergmann\CodeCoverage\Report\Html\Dashboard;
 use App\Http\Controllers\Backend\DashboardController;
 use App\Http\Controllers\Backend\UserController;
+use App\Http\Controllers\Backend\UserCatalogueController;
 use App\Http\Controllers\Ajax\LocationController;
 use App\Http\Controllers\Ajax\DashboardController as AjaxDashboardController;
 use App\Http\Middleware\AuthenticateMiddleware;
@@ -40,6 +41,22 @@ Route::group(['prefix' => 'user'], function(){
     //Xoá thông tin admin 
     Route::get('{id}/delete',[UserController::class,'delete'])->where(['id' => '[0-9]+'])->name('user.delete')->middleware('admin');
     Route::delete('{id}/destroy',[UserController::class,'destroy'])->where(['id' => '[0-9]+'])->name('user.destroy')->middleware('admin');
+
+});
+
+//13/11/2024
+Route::group(['prefix' => 'user/catalogue'], function(){
+    Route::get('index',[UserCatalogueController::class,'index'])->name('user.catalogue.index')->middleware('admin');
+    // Thêm nhân viên
+    Route::get('create',[UserCatalogueController::class,'create'])->name('user.catalogue.create')->middleware('admin');
+    //Lưu thông tin admin
+    Route::post('store',[UserCatalogueController::class,'store'])->name('user.catalogue.store')->middleware('admin');
+    //Edit thông tin admin (2/11/2024)
+    Route::get('{id}/edit', [UserCatalogueController::class, 'edit'])->where(['id' => '[0-9]+'])->name('user.catalogue.edit')->middleware('admin');
+    Route::post('{id}/update',[UserCatalogueController::class,'update'])->where(['id' => '[0-9]+'])->name('user.catalogue.update')->middleware('admin');
+    //Xoá thông tin admin 
+    Route::get('{id}/delete',[UserCatalogueController::class,'delete'])->where(['id' => '[0-9]+'])->name('user.catalogue.delete')->middleware('admin');
+    Route::delete('{id}/destroy',[UserCatalogueController::class,'destroy'])->where(['id' => '[0-9]+'])->name('user.catalogue.destroy')->middleware('admin');
 
 });
 
