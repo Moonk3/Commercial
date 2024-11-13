@@ -15,6 +15,11 @@
             </div>
             <div class="action">
                 <div class="uk-flex uk-flex-middle">
+                    <select name="publish" class="form-control setupSelect2 ml10" id="">
+                        <option value="-1" selected="selected">Chọn Tình trạng</option>
+                        <option value="0">UnPublish</option>
+                        <option value="1">Publish</option>
+                    </select>
                     <select name="user_catalogue_id" class="form-control mr10 setupSelect2" id="">
                         <option value="" selected="selected">Chọn nhóm thành viên</option>
                         <option value="1">Quản trị viên</option>

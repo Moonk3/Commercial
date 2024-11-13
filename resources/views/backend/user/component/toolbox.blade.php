@@ -10,7 +10,7 @@
         data-model="User" data-value="1">Publish toàn bộ</a>
         </li>
         <li><a href="#" class="changeStatusAll"data-value="0" data-field="publish" 
-        data-model="User" data-value="1">Unpublish toàn bộ</a>
+        data-model="User" >Unpublish toàn bộ</a>
         </li>
     </ul>
     <a class="close-link">
