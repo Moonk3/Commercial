@@ -51,7 +51,7 @@ Route::group(['prefix' => 'user/catalogue'], function(){
     Route::get('create',[UserCatalogueController::class,'create'])->name('user.catalogue.create')->middleware('admin');
     //Lưu thông tin admin
     Route::post('store',[UserCatalogueController::class,'store'])->name('user.catalogue.store')->middleware('admin');
-    //Edit thông tin admin (2/11/2024)
+    //Edit thông tin admin 
     Route::get('{id}/edit', [UserCatalogueController::class, 'edit'])->where(['id' => '[0-9]+'])->name('user.catalogue.edit')->middleware('admin');
     Route::post('{id}/update',[UserCatalogueController::class,'update'])->where(['id' => '[0-9]+'])->name('user.catalogue.update')->middleware('admin');
     //Xoá thông tin admin 

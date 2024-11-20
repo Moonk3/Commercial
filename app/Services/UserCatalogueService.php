@@ -24,37 +24,37 @@ class UserCatalogueService implements UserCatalogueServiceInterface
         $this->userCatalogueRepository = $userCatalogueRepository;
     }
 
-    //13/11/2024
     public function paginateSelect(){
         return[
             'id',
-            'email',
-            'phone',
-            'address',
             'name',
-            'publish'
+            'description',
+            'publish',
         ];
     }
     public function paginate($request){
-        $condition['keyword'] = addcslashes($request->input('keyword'), "'\"\\%");
-        $condition['publish'] = $request->integer('publish');
+        $condition = [
+            'keyword' => addslashes($request->input('keyword')),
+            'publish' => $request->integer('publish')
+        ];
         //$user = $this->userRepository->getAllPaginate();
         $perPage = $request->integer('perpage');
-        $user = $this->userCatalogueRepository->pagination($this->paginateSelect(), $condition,[],['path' => 'user/index'],$perPage);
+        $user = $this->userCatalogueRepository->pagination(
+            $this->paginateSelect(), 
+            $condition,
+            [],
+            ['path' => 'user/catalogue/index'],
+            $perPage);
         return $user;
     }
 
-    //gửi infor user 13/11/2024
+    //gửi infor user 20/11/2024
     public function create($request){
         DB::beginTransaction();
         try{
 
-            $payLoad = $request->except(['_token','send','re_password']);
-            //$carbonDate = Carbon::createFromFormat('Y-m-d',$payLoad['birthday']);
-            //$payLoad['birthday'] = $carbonDate->format('Y-m-d H:i:s');
-            $payLoad['birthday'] = $this->converBirthdayDate($payLoad['birthday']);
-            $payLoad['password'] = Hash::make($payLoad['password']);
-
+            $payLoad = $request->except(['_token','send']);
+            
             $user = $this->userCatalogueRepository->create($payLoad);
             DB::commit();
             return true;
@@ -66,12 +66,11 @@ class UserCatalogueService implements UserCatalogueServiceInterface
         }
     }
 
-    //Cập nhật infor 13/11/2024
+    //Cập nhật infor 20/11/2024
     public function update($id, $request){
         DB::beginTransaction();
         try{
             $payLoad = $request->except(['_token','send']);
-            $payLoad['birthday'] = $this->converBirthdayDate($payLoad['birthday']);
             $user = $this->userCatalogueRepository->update($id, $payLoad);
             DB::commit();
             return true;
@@ -104,7 +103,7 @@ class UserCatalogueService implements UserCatalogueServiceInterface
         }
     }
 
-    // Status 13/11/2024
+    // Status 20/11/2024
     public function updateStatus($post = []){
         DB::beginTransaction();
         try{

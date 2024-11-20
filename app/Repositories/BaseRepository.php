@@ -68,6 +68,10 @@ class BaseRepository implements BaseRepositoryInterface
                             //   ->orWhere('email','LIKE','%'.$condition['keyword'].'%')
                             //   ->orWhere('address','LIKE','%'.$condition['keyword'].'%')
                             //   ->orWhere('phone','LIKE','%'.$condition['keyword'].'%')
+                            if(asset($condition['publish']) && $condition['publish'] != -1){
+                                $query->where('publish','=',$condition['publish']);
+                            }
+                            return $query;
                     });
                     // ->join($join)
                     // ->get()->paginate($perpage);

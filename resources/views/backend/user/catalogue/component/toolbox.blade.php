@@ -7,10 +7,10 @@
     </a>
     <ul class="dropdown-menu dropdown-user">
         <li><a href="#" class="changeStatusAll" data-value="1" data-field="publish" 
-        data-model="User" data-value="1">Publish toàn bộ</a>
+        data-model="UserCatalogue">Xuất bản toàn bộ</a>
         </li>
         <li><a href="#" class="changeStatusAll"data-value="0" data-field="publish" 
-        data-model="User" >Unpublish toàn bộ</a>
+        data-model="UserCatalogue" >Không xuất bản toàn bộ</a>
         </li>
     </ul>
     <a class="close-link">

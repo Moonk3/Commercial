@@ -1,4 +1,4 @@
-<form action="{{route('user.index')}}">
+<form action="{{route('user.catalogue.index')}}">
     <div class="filter-wrapper">
         <div class="uk-flex uk-flex-middle uk-flex-space-between">
             <div class="perpage">
@@ -25,10 +25,7 @@
                         <option {{($publish == $key) ? 'selected' : ''}} value="{{$key}}">{{$val}}</option>
                         @endforeach
                     </select>
-                    <select name="user_catalogue_id" class="form-control mr10 setupSelect2" id="">
-                        <option value="" selected="selected">Chọn nhóm thành viên</option>
-                        <option value="1">Quản trị viên</option>
-                    </select>
+                    
     
                     <div class="uk-search uk-flex uk-flex-middle mr10 ml10">
                         <div class="input-group ">
@@ -47,7 +44,7 @@
                         </div>
                     </div>
                     {{-- Thêm mới Thành viên --}}
-                    <a href="{{route('user.create')}}" class="btn btn-danger"><i class="fa fa-plus mr5"></i>Thêm mới thành viên</a>
+                    <a href="{{route('user.catalogue.create')}}" class="btn btn-danger"><i class="fa fa-plus mr5"></i>Thêm mới nhóm thành viên</a>
                 </div>
             </div>
         </div>

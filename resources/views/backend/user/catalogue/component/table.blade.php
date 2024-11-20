@@ -5,45 +5,37 @@
             <input type="checkbox" value="" id="checkAll" class="input-checkbox">
         </th>
         
-        <th>Họ Tên</th>
-        <th>Email</th>
-        <th>Số điện thoại</th>
-        <th>Địa chỉ</th>
+        <th>Tên Nhóm Thành Viên</th>
+        <th class="text-center">Mô tả</th>
         <th class="text-center">Tình trạng</th>
         <th class="text-center">Thao tác</th>
     </tr>
     </thead>
     <tbody>
-        @if(isset($users) && is_object($users))
-        @foreach($users as $user)
+        @if(isset($userCatalogues) && is_object($userCatalogues))
+        @foreach($userCatalogues as $userCatalogue)
     <tr>
         <td>
-            <input type="checkbox" value="{{$user->id}}" class="input-checkbox checkBoxItem">
+            <input type="checkbox" value="{{$userCatalogue->id}}" class="input-checkbox checkBoxItem">
         </td>
         <td>
-            {{$user->name}}
+            {{$userCatalogue->name}}
         </td>
         <td>
-           {{$user->email}}
+            {{$userCatalogue->description}}
         </td>
-        <td>
-            {{$user->phone}}
-         </td>
-         <td>
-            {{$user->address}}
-         </td>
-        <td class="text-center js-switch-{{$user->id}}">
-            <input type="checkbox" value="{{$user->publish}}" class="js-switch
-            status " data-field="publish" data-model="User"{{($user->publish == 
-            1) ? 'checked' : ''}} data-modelId = "{{$user->id}}" />
+        <td class="text-center js-switch-{{$userCatalogue->id}}">
+            <input type="checkbox" value="{{$userCatalogue->publish}}" class="js-switch
+            status " data-field="publish" data-model="UserCatalogue"{{($userCatalogue->publish == 
+            1) ? 'checked' : ''}} data-modelIsd = "{{$userCatalogue->id}}" />
         </td>
         <td class="text-center">
-            <a href="{{route('user.edit',$user->id)}}" class="btn btn-success"><i class="fa fa-edit"></i></a>
-            <a href="{{route('user.delete',$user->id)}}" class="btn btn-danger"><i class="fa fa-trash"></i></a>
+            <a href="{{route('user.catalogue.edit',$userCatalogue->id)}}" class="btn btn-success"><i class="fa fa-edit"></i></a>
+            <a href="{{route('user.catalogue.delete',$userCatalogue->id)}}" class="btn btn-danger"><i class="fa fa-trash"></i></a>
         </td>
     </tr>
     @endforeach
     @endif
     </tbody>
 </table>
-{{ $users->links('pagination::bootstrap-4')}}
+{{ $userCatalogues->links('pagination::bootstrap-4')}}

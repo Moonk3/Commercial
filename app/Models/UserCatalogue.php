@@ -7,9 +7,16 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 class UserCatalogue extends Model
 {
-    use HasFactory, SoftDeletes;
+    // Đáng lý ra là SoftDeletes
+    use HasFactory ;
     protected $fillable = [
         'name',
+        'description',
         'publish',
     ];
+
+    protected $table = 'user_catalogues';
+    public function users(){
+        return $this->hasMany(User::class,'user_catalogue_id','id');
+    }
 }
